@@ -38,4 +38,21 @@ program
         });
     });
 
+program
+    .command("done <id>")
+    .description("Mark a todo as done")
+    .action((id: string) => {
+        const todos = fetchTodos();
+        const todo = todos.find((t) => t.id === Number(id));
+
+        if (!todo) {
+            return console.log("Todo not found.");
+        }
+
+        todo.done = true;
+        saveTodos(todos);
+
+        console.log("Completed:", todo.text);
+    });
+
 program.parse();

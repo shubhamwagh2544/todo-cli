@@ -24,4 +24,18 @@ program
         console.log("Added:", todo.text);
     })
 
+program
+    .command("list")
+    .description("List all todos")
+    .action(() => {
+        const todos = fetchTodos();
+        if (todos.length === 0) {
+            return console.log("No todos found.");
+        }
+
+        todos.forEach((t) => {
+            console.log(`${t.done ? "[✓]" : "[✕]"} ${t.id} - ${t.text}`);
+        });
+    });
+
 program.parse();

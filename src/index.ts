@@ -55,4 +55,29 @@ program
         console.log("Completed:", todo.text);
     });
 
+program
+    .command("delete <id>")
+    .description("Delete a todo")
+    .action((id: string) => {
+        let todos = fetchTodos();
+        /*
+        const index = todos.findIndex(todo => todo.id === Number(id))
+        if (index === -1) {
+            console.log("Todo not found.");
+        } else {
+            todos.splice(index, 1)
+            saveTodos(todos)
+        }
+        */
+        const before = todos.length;
+        todos = todos.filter((t) => t.id !== Number(id));
+        saveTodos(todos);
+
+        if (todos.length === before) {
+            console.log("Todo not found.");
+        } else {
+            console.log("Removed todo:", id);
+        }
+    });
+
 program.parse();
